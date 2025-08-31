@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our 1st Anniversary ❤️</title>
+  <style>
+    :root{
+      --bg:#ffe4ec; /* soft pink background */
+      --card:rgba(255,255,255,0.65); /* ✅ semi-transparent white/pink */
+      --soft:rgba(255,192,203,0.3);
+      --text:#4a0033;
+      --muted:#7a3f5c;
+      --accent:#ff4f9b;
+      --accent2:#ff7eb3;
+      --good:#ff5e9c;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      padding:0;
+      background: var(--bg);
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    .container{max-width:980px;margin:0 auto;padding:24px}
+    .card{
+      background:var(--card); /* ✅ semi-transparent card */
+      border:1px solid rgba(255,255,255,0.4);
+      border-radius:24px;
+      padding:20px;
+      box-shadow:0 8px 32px rgba(255,105,180,0.25);
+      backdrop-filter: blur(10px); /* glass effect */
+    }
+    header.hero{display:grid;gap:12px; padding:28px 20px; text-align:center}
+    header .title{font-size:clamp(28px,3.6vw,44px); font-weight:800; letter-spacing:.3px}
+    header .subtitle{font-size:clamp(14px,2.2vw,18px); color:var(--muted)}
+
+    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px}
+    .chip{background:rgba(255,255,255,0.6); border-radius:16px; padding:14px 12px; text-align:center; border:1px solid rgba(255,255,255,0.4)}
+    .big{font-size:clamp(22px,3vw,28px); font-weight:800}
+    .label{font-size:12px; color:var(--muted)}
+
+    .section{margin-top:26px}
+    .section h2{margin:0 0 12px; font-size:22px}
+
+    .timeline{display:grid; gap:12px}
+    .t-item{background:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.4); border-radius:16px; padding:14px}
+    .t-item .when{font-size:12px; color:var(--muted)}
+    .t-item .what{font-size:16px; font-weight:700; margin:6px 0}
+    .t-item .desc{font-size:14px; color:var(--muted)}
+
+    .gallery{display:grid; gap:10px; grid-template-columns:repeat(2,1fr)}
+    @media(min-width:800px){.gallery{grid-template-columns:repeat(4,1fr)}}
+    .gallery img{width:100%; height:160px; object-fit:cover; border-radius:14px; border:1px solid rgba(255,255,255,.4)}
+
+    .jokes details{background:rgba(255,255,255,0.6); border-radius:14px; padding:12px; border:1px solid rgba(255,255,255,0.4)}
+    .jokes summary{cursor:pointer; font-weight:600}
+
+    .controls{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px}
+    .btn{border:none; padding:12px 16px; border-radius:14px; font-weight:700; cursor:pointer; color:white;
+         background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 8px 24px rgba(255,0,90,.25)}
+    .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.4); color:var(--text)}
+
+    .poem{min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; background:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.4); border-radius:14px}
+
+    .lock{background:rgba(255,255,255,0.6); border-radius:16px; padding:14px; border:1px solid rgba(255,255,255,0.4)}
+    .progress{height:10px; background:#ffcfe0; border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,0.4)}
+    .bar{height:100%; width:0%; background:linear-gradient(90deg, var(--good), var(--accent)); transition:width .12s}
+    .letter{display:none; white-space:pre-wrap; line-height:1.5; color:#4a0033}
+
+    footer{opacity:.7; font-size:12px; text-align:center; margin:26px 0}
+
+    /* floating hearts */
+    .heart{position:fixed; left:0; top:0; font-size:18px; pointer-events:none; animation:float 4s linear forwards}
+    @keyframes float{0%{transform:translate(var(--x),100vh) scale(1); opacity:0}
+                     10%{opacity:1}
+                     90%{opacity:1}
+                     100%{transform:translate(calc(var(--x) + 40px), -10vh) scale(0.6); opacity:0}}
+    .type{border-right:2px solid rgba(0,0,0,.6); white-space:nowrap; overflow:hidden}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero card">
+      <div class="title type" id="titleText">Happy 1st Anniversary, <span id="partnerName">My Love</span>! 🫶</div>
+      <div class="subtitle">Our love story — curated by two AI students, trained on infinite memories.</div>
+      <div class="stats">
+        <div class="chip"><div class="big" id="daysTogether">0</div><div class="label">Days Together</div></div>
+        <div class="chip"><div class="big" id="modelEpochs">0</div><div class="label">Epochs of Love</div></div>
+        <div class="chip"><div class="big" id="modelAcc">99.9%</div><div class="label">Model Accuracy (Loving You)</div></div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="shareBtn">Share</button>
+        <button class="btn ghost" id="confettiBtn">Celebrate 🎉</button>
+      </div>
+    </header>
+
+    <div class="row section">
+      <section class="card">
+        <h2>Our Timeline</h2>
+        <div class="timeline" id="timeline"></div>
+      </section>
+      <aside class="card">
+        <h2>AI Love Poem Generator 🤖❤️</h2>
+        <div class="poem" id="poem">Click “Generate Poem” to create a nerdy-love line.</div>
+        <div class="controls">
+          <button class="btn" id="genPoem">Generate Poem</button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="section card">
+      <h2>Inside Jokes 🙈</h2>
+      <div class="jokes" id="jokes"></div>
+    </div>
+
+    <div class="section card">
+      <h2>Gallery 📸</h2>
+      <div class="gallery" id="gallery">
+        <img src="E:\aniversary site\1.jpg.jpg" alt="us 1"/>
+        <img src="E:\aniversary site\2.jpg.jpg" alt="us 2"/>
+        <img src="E:\aniversary site\3.jpg.jpg" alt="us 3"/>
+        <img src="E:\aniversary site\4.jpg.jpg" alt="us 4"/>
+        <img src="E:\aniversary site\5.jpg.jpg" alt="us 5"/>
+      </div>
+    </div>
+
+    <div class="section card lock">
+      <h2>Hidden Love Letter 🔐</h2>
+      <p>Press & hold the button to “train” the model and unlock the letter.</p>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <div class="controls" style="justify-content:flex-start">
+        <button class="btn" id="holdBtn">Press & Hold to Train</button>
+        <span class="label" id="progressText">0%</span>
+      </div>
+      <div class="letter" id="letter"></div>
+    </div>
+
+    <footer>
+      Made with ❤️ in HTML, CSS & JS — no frameworks. Edit CONFIG in the script to personalize.
+    </footer>
+  </div>
+
+  <script>
+    // ======== CONFIG ========
+    const CONFIG = {
+      yourName: "Gundu",
+      partnerName: "Azhaghi",
+      startDate: "2024-08-31", // YYYY-MM-DD
+      timeline: [
+        { date: "2024-08-31", title: "We said yes", desc: "The day our story officially began." },
+        { date: "2024-09-08", title: "First video call", desc: "Seeing my babee." },
+        { date: "2024-09-05", title: "First lip lock", desc: "The theatre is busy with goat movie whereas we were busy with our work 😘" },
+        { date: "2025-05-12", title: "Project together", desc: "Two AI brains, one heart." }
+      ],
+      jokes: [
+        "Moody nights at long distance kept us connected ❤️",
+        "Who said ‘I’ll call in 5 mins’ and came back after 2 hours? 😏",
+        "Your angry face has a 0.01 loss — too cute to be mad",
+        "Erode ↔️ CBE express — the real ML pipeline 🚆"
+      ],
+      loveLetter: `My love,  
+
+365 days, countless memories, one beautiful journey ❤️  
+If my heart was a model, you’re its only perfect output.  
+Distance is just data — love is our constant.  
+
+Happy 1st Anniversary, my forever 💕  
+- Your Gundu`
+    };
+    // ======== END CONFIG ========
+
+    const fmtDate = (d) => new Date(d + 'T00:00:00');
+
+    function initBasics(){
+      document.getElementById('partnerName').textContent = CONFIG.partnerName;
+      const start = fmtDate(CONFIG.startDate);
+      const today = new Date();
+      const diffDays = Math.floor((today - start) / (1000*60*60*24));
+      document.getElementById('daysTogether').textContent = diffDays >= 0 ? diffDays : 0;
+      document.getElementById('modelEpochs').textContent = Math.max(1, diffDays);
+      const acc = (99.4 + Math.random()*0.5).toFixed(2) + '%';
+      document.getElementById('modelAcc').textContent = acc;
+
+      document.getElementById('shareBtn').addEventListener('click', async ()=>{
+        const text = `Happy 1st Anniversary, ${CONFIG.partnerName}! Our love keeps learning every day. ❤️`;
+        try{
+          if(navigator.share){ await navigator.share({ title: 'Our Anniversary', text, url: location.href }); }
+          else{ await navigator.clipboard.writeText(location.href); alert('Link copied! Send it to your love.'); }
+        }catch(e){ console.log(e); }
+      });
+    }
+
+    function buildTimeline(){
+      const wrap = document.getElementById('timeline');
+      wrap.innerHTML = '';
+      const items = [...CONFIG.timeline].sort((a,b)=> fmtDate(a.date)-fmtDate(b.date));
+      for(const it of items){
+        const div = document.createElement('div'); div.className='t-item';
+        div.innerHTML = `<div class="when">${new Date(it.date).toDateString()}</div>
+                         <div class="what">${it.title}</div>
+                         <div class="desc">${it.desc}</div>`;
+        wrap.appendChild(div);
+      }
+    }
+
+    function buildJokes(){
+      const box = document.getElementById('jokes'); box.innerHTML='';
+      CONFIG.jokes.forEach((j,i)=>{
+        const d=document.createElement('details');
+        const s=document.createElement('summary'); s.textContent = `Inside Joke #${i+1}`;
+        const p=document.createElement('div'); p.style.marginTop='8px'; p.style.color='var(--muted)'; p.textContent = j;
+        d.appendChild(s); d.appendChild(p); box.appendChild(d);
+      })
+    }
+
+    // Poem generator
+    const POEM = {
+      open:["In every epoch","With each iteration","Across all datasets","Under any loss function","No matter the noise"],
+      mid:["my heart converges to you","your smile reduces every error","our love overfits the good times","your laugh regularizes my chaos","we generalize beyond distance"],
+      close:["forever","always","till infinity","and beyond","every single day"]
+    };
+    function rand(a){ return a[Math.floor(Math.random()*a.length)] }
+    function genPoem(){ return `${rand(POEM.open)}, ${rand(POEM.mid)} — ${rand(POEM.close)}.` }
+
+    // Hidden letter (press & hold)
+    let holdTimer=null, progress=0;
+    function startHold(){ if(holdTimer) return; holdTimer=setInterval(()=>{ progress=Math.min(100,progress+2); updateBar(); if(progress>=100){ unlockLetter(); stopHold(); }},30);}
+    function stopHold(){ clearInterval(holdTimer); holdTimer=null; }
+    function updateBar(){ document.getElementById('bar').style.width=progress+'%'; document.getElementById('progressText').textContent=progress+'%'; }
+    function unlockLetter(){ const el=document.getElementById('letter'); el.textContent=CONFIG.loveLetter; el.style.display='block'; heartBurst(); }
+
+    // Heart confetti
+    function heartBurst(n=30){ for(let i=0;i<n;i++){ const s=document.createElement('div'); s.className='heart'; s.textContent=['❤️','💖','💘','💞','💗'][i%5]; const x=Math.random()*100+'vw'; s.style.setProperty('--x',x); document.body.appendChild(s); setTimeout(()=>s.remove(),4000); } }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', ()=>{
+      initBasics();
+      buildTimeline();
+      buildJokes();
+      document.getElementById('genPoem').addEventListener('click', ()=>{ document.getElementById('poem').textContent=genPoem(); heartBurst(10); });
+      const hb=document.getElementById('holdBtn');
+      hb.addEventListener('mousedown', startHold);
+      hb.addEventListener('mouseup', stopHold);
+      hb.addEventListener('mouseleave', stopHold);
+      hb.addEventListener('touchstart',(e)=>{ e.preventDefault(); startHold(); },{passive:false});
+      hb.addEventListener('touchend', stopHold);
+      document.getElementById('confettiBtn').addEventListener('click', ()=> heartBurst(36));
+    });
+  </script>
+</body>
+</html>
